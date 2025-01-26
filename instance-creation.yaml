@@ -14,8 +14,8 @@
       name: "{{ item }}"
       executable: pip3.9
     loop:
-      -boto3
-      -botocore
+    - boto3
+    - botocore
 
   - name: create ec2 instance
     amazon.aws.ec2_instance:
@@ -33,7 +33,7 @@
   - name: print ec2 info
     ansible.builtin.debug:
       mgs: "{{ ec2_info }}"
-      
+
 
 
 
