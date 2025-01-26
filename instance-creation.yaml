@@ -1,0 +1,42 @@
+- name: create ec2 instance and r53 records
+  hosts: local
+  connection: local
+  vars:
+    subnet_id: subnet-0911e8ba5d4c2d581
+    sg_id: sg-0b25abadbcc8365bf
+    ami_id: ami-09c813fb71547fc4f
+    instance_type: t3.micro
+    zone: learndevopsacademy.online
+
+  tasks:
+  - name: install AWS Python Libraries
+    ansible.builtin.pip:
+      name: "{{ item }}"
+      executable: pip3.9
+    loop:
+      -boto3
+      -botocore
+
+  - name: create ec2 instance
+    amazon.aws.ec2_instance:
+      name: "{{ item }}"
+      subnet_id: "{{ subnet_id }}"
+      security_group: "{{ sg_id }}"
+      image_id: "{{ ami_id }}"
+      instance_type: "{{ instance_type }}"   
+    loop:
+      - mysql
+      - backend
+      - frontend
+    register: ec2_info
+
+  - name: print ec2 info
+    ansible.builtin.debug:
+      mgs: "{{ ec2_info }}"
+      
+
+
+
+
+
+
