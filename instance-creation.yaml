@@ -32,7 +32,7 @@
 
   - name: print ec2 info
     ansible.builtin.debug:
-      mgs: "{{ ec2_info }}"
+      msg: "{{ ec2_info }}"
 
 
 
